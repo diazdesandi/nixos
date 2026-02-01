@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "**/README.md"
   pull_request:
 
 jobs:
@@ -19,7 +21,7 @@ jobs:
         run: nix build .#nixosConfigurations.nixos-laptop.config.system.build.toplevel
 
       - name: Flake checks
-        run: nix flake checks
+        run: nix flake check
 
       - name: Check formatting
         run: nix fmt || true
