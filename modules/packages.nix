@@ -5,7 +5,8 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    zen-browser
+    # zen-browser # TODO: Package not available, use flakes.
+    firefox
     btop
     fastfetch
     openssl
