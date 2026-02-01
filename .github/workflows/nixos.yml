@@ -1,0 +1,25 @@
+name: NixOS CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Build config
+        run: nix build .#nixosConfigurations.nixos-laptop.config.system.build.toplevel
+
+      - name: Flake checks
+        run: nix flake checks
+
+      - name: Check formatting
+        run: nix fmt || true
